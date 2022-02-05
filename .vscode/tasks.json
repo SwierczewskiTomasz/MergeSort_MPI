@@ -1,0 +1,35 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "Build",
+            "command": "/usr/local/bin/cmake",
+            "args": [
+                "--no-warn-unused-cli",
+                "-DCMAKE_EXPORT_COMPILE_COMMANDS:BOOL=TRUE",
+                "-DCMAKE_BUILD_TYPE:STRING=Release",
+                "-DCMAKE_C_COMPILER:FILEPATH=/usr/bin/x86_64-linux-gnu-gcc-11",
+                "-DCMAKE_CXX_COMPILER:FILEPATH=/usr/bin/x86_64-linux-gnu-g++-11",
+                "-H${workspaceFolder}",
+                "-B${workspaceFolder}/build",
+            ]
+        },
+        {
+            "type": "shell",
+            "label": "Make after CMake build",
+            "command": "/usr/bin/make",
+            "args": [
+                "-C",
+                "${workspaceFolder}/build"
+            ]
+        },
+        {
+            "label": "Build",
+            "dependsOn": [
+                "Build",
+                "Make after CMake build"
+            ]
+        }
+    ]
+}
